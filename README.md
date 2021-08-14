@@ -4,6 +4,7 @@
 
 1.-Booking API Considerations
   This web application is developed to manage the reservations of a room in an hotel in Cancun.
+  
   -Functionalities 
     *Check availability
     *Create a reservation
