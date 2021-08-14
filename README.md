@@ -42,7 +42,7 @@
 
 3.-Database
 
-  -This web app will be using 4 tables to manage the reservation functionality with Mysql.
+  -This web app will be using 4 tables to manage the reservation functionality with SQL Server
   
     *Clients -> information of clients such as email, password
     
@@ -68,9 +68,11 @@
  5.-Frontend
  
   - This layer will be developed with React 
-
+    
     *Using hooks to manage the doom
+       
     *Using redux to manage the data exchange.
+    
     *Axios to comunicate with the webAPI.
  
 
