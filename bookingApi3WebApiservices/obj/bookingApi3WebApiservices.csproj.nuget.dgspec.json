@@ -4,14 +4,14 @@
     "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj": {}
   },
   "projects": {
-    "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj": {
+    "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj",
-        "projectName": "bookingApi3WebApiservices",
-        "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj",
+        "projectUniqueName": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj",
+        "projectName": "bookingApi1DataAccess",
+        "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj",
         "packagesPath": "/home/carlos/.nuget/packages/",
-        "outputPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/obj/",
+        "outputPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/carlos/.nuget/NuGet/NuGet.Config"
@@ -38,6 +38,153 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bookingApi2BusinessLogic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bookingApi2BusinessLogic.csproj",
+        "projectName": "bookingApi2BusinessLogic",
+        "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bookingApi2BusinessLogic.csproj",
+        "packagesPath": "/home/carlos/.nuget/packages/",
+        "outputPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/carlos/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj": {
+                "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj",
+        "projectName": "bookingApi3WebApiservices",
+        "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/bookingApi3WebApiservices.csproj",
+        "packagesPath": "/home/carlos/.nuget/packages/",
+        "outputPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi3WebApiservices/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/carlos/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj": {
+                "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bookingApi1DataAccess.csproj"
+              },
+              "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bookingApi2BusinessLogic.csproj": {
+                "projectPath": "/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bookingApi2BusinessLogic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"

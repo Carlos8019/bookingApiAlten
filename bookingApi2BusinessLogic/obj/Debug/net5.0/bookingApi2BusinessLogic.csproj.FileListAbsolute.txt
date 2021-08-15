@@ -1,0 +1,15 @@
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/bookingApi2BusinessLogic.deps.json
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/bookingApi2BusinessLogic.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/ref/bookingApi2BusinessLogic.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/bookingApi2BusinessLogic.pdb
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/bookingApi1DataAccess.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/bin/Debug/net5.0/bookingApi1DataAccess.pdb
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.csproj.AssemblyReference.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.AssemblyInfoInputs.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.AssemblyInfo.cs
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.csproj.CoreCompileInputs.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.csproj.CopyComplete
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/ref/bookingApi2BusinessLogic.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi2BusinessLogic/obj/Debug/net5.0/bookingApi2BusinessLogic.pdb

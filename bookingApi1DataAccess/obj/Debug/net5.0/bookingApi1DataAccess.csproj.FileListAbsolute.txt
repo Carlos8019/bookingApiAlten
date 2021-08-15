@@ -1,0 +1,15 @@
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.csproj.AssemblyReference.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.AssemblyInfoInputs.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.AssemblyInfo.cs
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.csproj.CoreCompileInputs.cache
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/bookingApi1DataAccess.deps.json
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/bookingApi1DataAccess.runtimeconfig.json
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/bookingApi1DataAccess.runtimeconfig.dev.json
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/bookingApi1DataAccess.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/ref/bookingApi1DataAccess.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/bin/Debug/net5.0/bookingApi1DataAccess.pdb
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/ref/bookingApi1DataAccess.dll
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.pdb
+/home/carlos/Documents/coding/react/bookingApiAlten/bookingApi1DataAccess/obj/Debug/net5.0/bookingApi1DataAccess.genruntimeconfig.cache

@@ -5,7 +5,7 @@
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='BTClients' and xtype='U')
 BEGIN
     CREATE TABLE BTClients (
-        btcIdCliente INT PRIMARY KEY IDENTITY (1, 1),
+        btcIdClient INT PRIMARY KEY IDENTITY (1, 1),
         btcUserName VARCHAR(150),
         btcPassword varchar(500)
     )

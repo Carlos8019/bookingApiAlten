@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using dataAccess.interfaces;
+using bookingApi1DataAccess.Interfaces;
+using bookingApi1DataAccess;
 namespace bookingApi1DataAccess.Classes
 {
     /*
@@ -17,7 +18,7 @@ namespace bookingApi1DataAccess.Classes
         internal DbSet<T> dBSet;
         
         //le constructor gestione l'initialisation du context et le DBSET
-        protected GenericRepository(EsDbContext context)
+        protected GenericRepository(BApiContext context)
         {
             _context=context;
             this.dBSet=context.Set<T>();

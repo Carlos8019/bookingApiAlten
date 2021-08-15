@@ -11,7 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
+using bookingApi2BusinessLogic;
+using bookingApi1DataAccess;
+using Microsoft.EntityFrameworkCore;
 namespace bookingApi3WebApiservices
 {
     public class Startup
@@ -28,6 +30,13 @@ namespace bookingApi3WebApiservices
         {
 
             services.AddControllers();
+            //Ajouter la conexion à la base de donnees en utilisant le appsetting.json
+            services.AddDbContext<BApiContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            //Ajouter les trasients pour gestioner le dependency injection
+            services.AddRepository();
+            //ajouter Cors pour la conexion avec React
+            services.AddCors();
+            //swagger permet avoir un access facile aux services
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "bookingApi3WebApiservices", Version = "v1" });
@@ -43,7 +52,12 @@ namespace bookingApi3WebApiservices
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "bookingApi3WebApiservices v1"));
             }
-
+            //Acpeter tout type de conexion pour le conexion avec l'utilisateurs
+            app.UseCors(options=>{
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
