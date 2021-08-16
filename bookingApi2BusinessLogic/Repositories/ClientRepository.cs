@@ -36,20 +36,27 @@ namespace bookingApi2BusinessLogic.Repositories
             }
             return result;
         }
-
         //enregistrer un nouveau client, implementation de l'interface
         public async Task<bool> CreateUser(ClientDto dto)
-        { 
-            var result=false;
+        {
+            var result = false;
             //obtenir l'objet Client pour l'enregistrer
-            var entity=GetEntity(dto);
-            //ajouter l'entity
-            await _context.Clients.AddAsync(entity);
-            //enregistrer les changements
-            var insert=await _context.SaveChangesAsync();
-            //valider l'enregistrement
-            if(insert>0)
-                result=true;
+            var entity = GetEntity(dto);
+            //verifier si le prenom d'utilisateur deja existe.
+            var findUser = await _context.Clients
+                         .Where(cl => cl.userName.Equals(dto.userName))
+                         .AsNoTracking()
+                         .ToListAsync();
+            if (!findUser.Any())
+            {
+                //ajouter l'entity
+                await _context.Clients.AddAsync(entity);
+                //enregistrer les changements
+                var insert = await _context.SaveChangesAsync();
+                //valider l'enregistrement
+                if (insert > 0)
+                    result = true;
+            }
             return result;
         }
         //transformet le DTO a une objet Client
