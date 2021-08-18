@@ -1,15 +1,18 @@
-
-import { useContext } from 'react';
+import React, { useContext } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap';
-import ModalContext from '../Contexts/ModalContext';
-export default function CreateUser(props) {
-    //importer le Context pour utiliser le modal
-    const { toggleModal,handleChange, modal, enableButton, messageModal,  CreateUser } = useContext(ModalContext);
+import ModalContext from '../Contexts/ModalContext'
+/*
+Cette fonction permet se connecter en utilisant le web service pour valider le courriel
+et le mot de passe
+ */
+function Login(props) {
+    //utiliser le Modal Context pour gestioner les fonctions
+    const {modalLogin,toggleModal,handleChange,messageModal,enableButton,loginUser}=useContext(ModalContext);
 
     return (
         <div>
-            <Modal isOpen={modal} toggle={()=>toggleModal(1)}>
-                <ModalHeader toggle={()=>toggleModal(1)}>Créer un compte</ModalHeader>
+            <Modal isOpen={modalLogin} toggle={()=>toggleModal(2)}>
+                <ModalHeader toggle={()=>toggleModal(2)}>Se Connecter</ModalHeader>
                 <ModalBody>
                     <Label>Courriel</Label>
                     <Input
@@ -32,10 +35,13 @@ export default function CreateUser(props) {
 
                 </ModalBody>
                 <ModalFooter>
-                    <Button disabled={enableButton} color="primary" onClick={(e) => CreateUser(props, e)}>Enregistrer</Button>{' '}
-                    <Button color="secondary" onClick={()=>toggleModal(1)}>Annuler</Button>
+                    <Button disabled={enableButton} color="primary" onClick={(e) => loginUser(props,e)}>Se Connecter</Button>{' '}
+                    <Button color="secondary" onClick={()=>toggleModal(2)}>Annuler</Button>
                 </ModalFooter>
             </Modal>
         </div>
-    )
+
+   )
 }
+
+export default Login

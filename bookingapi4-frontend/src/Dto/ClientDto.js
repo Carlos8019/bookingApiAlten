@@ -1,5 +1,5 @@
 /*
-    Cette fonction permet faire un mapping des donnees au format JSON por l'envoyer 
+    Cette fonction permet faire un mapping des donnees au format JSON pour l'envoyer 
     dans le demande au service web
  */
 function ClienteDto(props) {

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './Components/App';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { ModalProvider } from './Contexts/ModalContext';
+import Routes from './Router/Routes';
 
+/*
+Cette component gestione le router a la page principal ou a la page d'utilisateur
+ */
 ReactDOM.render(
   <React.StrictMode>
-    <ModalProvider>
-    <App />
-    </ModalProvider>
+    <Routes />
   </React.StrictMode>,
   document.getElementById('root')
 );

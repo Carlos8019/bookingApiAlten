@@ -1,10 +1,11 @@
-import {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 //Validator permets faire des validations en ce cas pour le courriel
 
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import ModalContext from '../Contexts/ModalContext';
 import CreateUser from './CreateUser';
+import Login from './Login';
 /*Cette fontion implement l'écran principal avec la parti de login et sign-up
 afin de seconecter et verifier le disponibilite
 j'utilise le react-strap et le bootstrap pour developper les écrans, le redux pour 
@@ -14,25 +15,25 @@ function App() {
   //utiliser l'usestate pour gestioner le Tab component
   const [activeTab, setActiveTab] = useState('1');
   const toggle = tab => {
-    if(activeTab !== tab) setActiveTab(tab);
+    if (activeTab !== tab) setActiveTab(tab);
   }
   //importer le Context pour utiliser le modal
-  const {toggleModal}=useContext(ModalContext);
+  const { toggleModal, messageTab } = useContext(ModalContext);
   //creation du Tab pour aborder a le signup ou le signin et verifier la disponibilite
   return (
-<>
-        <div class="container">
+    <>
+      <div class="container">
         <div class="row h-50">
-            <div class="col-sm-6 h-100 d-table">
-                <div class="card card-body d-table-cell align-middle">
-                    Bookin API Alten Challenge
-                </div>
+          <div class="col-sm-6 h-100 d-table">
+            <div class="card card-body d-table-cell align-middle">
+              Bookin API Alten Challenge
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-        <div className="d-flex align-items-center justify-content-center">
-          <div className="container">
+      <div className="d-flex align-items-center justify-content-center">
+        <div className="container">
           <Nav tabs>
             <NavItem>
               <NavLink
@@ -65,30 +66,32 @@ function App() {
                   <Card body>
                     <CardTitle>S'inscrire</CardTitle>
                     <CardText>Créez votre compte et vérifiez votre réservation et la disponibilité des chambres.</CardText>
-                    <Button onClick={toggleModal}>Sign-Up</Button>
+                    <Button onClick={() => toggleModal(1)}>Sign-Up</Button>
                   </Card>
                 </Col>
                 <Col sm="6">
                   <Card body>
                     <CardTitle>Se Connecter</CardTitle>
                     <CardText>Connectez-vous à votre compte et vérifiez votre réservation et la disponibilité des chambres..</CardText>
-                    <Button>Sign-In</Button>
+                    <Button onClick={() => toggleModal(2)}>Sign-In</Button>
                   </Card>
                 </Col>
-                <Row>
-                  <Card body>
-                    <CardTitle>disponibilite</CardTitle>
-                    <CardText>Résumé de la disponibilité des chambres</CardText>
-                  </Card>
-                </Row>
+              </Row>
+              <Row>
+                {messageTab ? <p className="alert alert-info">{messageTab}</p> : <p></p>}
+                <Card body>
+                  <CardTitle>disponibilite</CardTitle>
+                  <CardText>Résumé de la disponibilité des chambres</CardText>
+                </Card>
               </Row>
             </TabPane>
           </TabContent>
-          </div>
-          <CreateUser />
-      </div>  
-  </>
- );
+        </div>
+        <CreateUser />
+        <Login />
+      </div>
+    </>
+  );
 }
 
 export default App;

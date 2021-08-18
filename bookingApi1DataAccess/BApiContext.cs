@@ -15,5 +15,7 @@ namespace bookingApi1DataAccess
         }   
         //Represente chaque table en tant qu'une class
         public DbSet<Clients> Clients {get;set;}
+        public DbSet<Reservations> Reservations { get; set; }
+        public DbSet<Rooms> Rooms { get; set; }
     }
 }

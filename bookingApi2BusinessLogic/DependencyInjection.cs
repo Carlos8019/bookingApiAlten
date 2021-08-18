@@ -15,6 +15,8 @@ namespace bookingApi2BusinessLogic
         {
             //AddTrasient permet la creation d'objets pour toute la petition
             services.AddTransient<IClientRepository,ClientRepository>();
+            services.AddTransient<IReservationsRespository,ReservationsRepository>();
+            services.AddTransient<IRoomsRepository,RoomsRepository>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             return services;
         }

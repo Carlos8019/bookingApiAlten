@@ -11,6 +11,7 @@ namespace bookingApi2BusinessLogic.Interfaces
     public interface IUnitOfWork:IDisposable
     {
         public IClientRepository Clients {get;}
-        
+        public IReservationsRespository Reservations {get;}
+        public IRoomsRepository Rooms{get;}
     }
 }

@@ -1,1 +1,1 @@
-export const baseURL="https://localhost:5001/Data/";
+export const baseURL="https://localhost:5001/BookinApi/";

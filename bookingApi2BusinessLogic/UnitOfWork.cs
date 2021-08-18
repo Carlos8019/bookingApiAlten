@@ -7,11 +7,19 @@ namespace bookingApi2BusinessLogic
     {
         //_context permets gestioner l'access a la base de donees 
         private readonly BApiContext _context;
+        //repositories
         public IClientRepository Clients {get;}
+        public IReservationsRespository Reservations {get;}
+        public IRoomsRepository Rooms{get;}
         //Dependency injection allocation
-        public UnitOfWork(BApiContext context, IClientRepository clients)
+        public UnitOfWork(BApiContext context
+        ,IClientRepository clients
+        ,IReservationsRespository reservations
+        ,IRoomsRepository rooms)
         {
             this.Clients=clients;
+            this.Reservations=reservations;
+            this.Rooms=rooms;
             this._context=context;
         }
         //gestion du garbage collector
