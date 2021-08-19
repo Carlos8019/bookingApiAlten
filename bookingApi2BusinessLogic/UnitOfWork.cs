@@ -11,15 +11,18 @@ namespace bookingApi2BusinessLogic
         public IClientRepository Clients {get;}
         public IReservationsRespository Reservations {get;}
         public IRoomsRepository Rooms{get;}
+        public ICalendarAvailabilityRespository Calendars {get;}
         //Dependency injection allocation
         public UnitOfWork(BApiContext context
         ,IClientRepository clients
         ,IReservationsRespository reservations
-        ,IRoomsRepository rooms)
+        ,IRoomsRepository rooms
+        ,ICalendarAvailabilityRespository calendars)
         {
             this.Clients=clients;
             this.Reservations=reservations;
             this.Rooms=rooms;
+            this.Calendars=calendars;
             this._context=context;
         }
         //gestion du garbage collector

@@ -10,11 +10,10 @@ namespace bookingApi2BusinessLogic.Interfaces
     {
         //fonctions pour gestioner les reservation, le detaille c'est dasn l'implementation
         public Task<bool> CreateReservation(Reservations obj);
-        public Task<bool> ValidateDatesReservation(ReservationDto dto);
+        public Task<bool> ValidateDatesReservation(ReservationDto dto,int maxdays);
         public Task<Reservations>  CreateEntity(ReservationDto dto, bool flagUpdate);
         public Task<bool> UpdateReservation(Reservations objNew);
         public Task<bool> DeleteReservation(Reservations objDelete);
         public Task<IEnumerable<Reservations>> GetReservationsByClient(string client);
-        public Task<IEnumerable<Reservations>> GetAvailability();
     }
 }

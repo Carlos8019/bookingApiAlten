@@ -13,5 +13,6 @@ namespace bookingApi2BusinessLogic.Interfaces
         public IClientRepository Clients {get;}
         public IReservationsRespository Reservations {get;}
         public IRoomsRepository Rooms{get;}
+        public ICalendarAvailabilityRespository Calendars {get;}
     }
 }

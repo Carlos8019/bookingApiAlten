@@ -3,6 +3,9 @@ using System;
 using System.Threading.Tasks;
 using bookingApi2BusinessLogic.Dto;
 using bookingApi2BusinessLogic.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 namespace bookingApi3WebApiservices.Controllers
 {
     /*
@@ -14,10 +17,35 @@ namespace bookingApi3WebApiservices.Controllers
     {
         //Le facade pour le access à chaque fontionalite detaille
         private readonly IUnitOfWork _unitOfWork;
+        //Iconfiguration permet obtenir les parameters du fichier appsetting.json
+        private readonly IConfiguration _configuration;
+        //obtenir les jours maximun pour la disponibilite
+        private readonly int _maxDays;        
+        //obtenir le maximun des jours pour chaque reservation
+        private readonly int _maxReservation;
+        
+        //logger pour debuguer l'API
+        private readonly ILogger _logger;
         //Le constructor pour permet le depedency injection et le trasient 
-        public BookinApiController(IUnitOfWork unitOfWork)
+        public BookinApiController(IUnitOfWork unitOfWork,IConfiguration configuration,ILoggerFactory logger)
         {
+            this._configuration=configuration;
             this._unitOfWork = unitOfWork;
+            _logger=logger.CreateLogger("ControllerBooking");
+            //obtenir les jours du fichier appsetting.json
+            try
+            {
+                int.TryParse(_configuration.GetSection("ParameterDays:MaxDays").Value,out var days);
+                this._maxDays=days;
+                int.TryParse(_configuration.GetSection("ParameterDays:MaxReservation").Value,out var daysReservation);
+                this._maxReservation=daysReservation;
+            }
+            catch (Exception)//si existe quelque erreur initialiser le tout en 0
+            {
+                this._maxReservation=0;
+                this._maxDays=0;
+
+            }
         }
         //Validation d'access d'utilisateur
         [HttpPost("login")]
@@ -83,7 +111,7 @@ namespace bookingApi3WebApiservices.Controllers
             try
             {
                 //Validation des dates qui sont deja dans les reservations
-                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto))
+                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation))
                 {
                     //createEntity avec l'flag false pour l'enregistrement
                     var entity = await _unitOfWork.Reservations.CreateEntity(dto, false);
@@ -121,7 +149,7 @@ namespace bookingApi3WebApiservices.Controllers
             try
             {
                 //Validation des dates qui sont deja dans les reservations
-                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto))
+                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation))
                 {
                     //createEntity avec l'flag true pour le modifier
                     var entity = await _unitOfWork.Reservations.CreateEntity(dto, true);
@@ -199,5 +227,56 @@ namespace bookingApi3WebApiservices.Controllers
                 return BadRequest(ex.Message + " " + ex.StackTrace + " " + ex.InnerException);
             }
         }
+        //Modifier le calendried de disponiblite
+        [HttpPost("updateCalendar")]
+        //definir le code d'etat de chaque response
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        //definir le services comme asynchrone pour prende en charge la concurrence
+        public async Task<IActionResult> UpdateCalendar([FromBody] ReservationDto dto)
+        {
+            try
+            {
+                //convertir le dto a une Entity
+                var entity=await _unitOfWork.Reservations.CreateEntity(dto,false);
+                var result=await _unitOfWork.Calendars.UpdateAvailability(entity,0);
+                if(result)
+                    return Ok(1);
+                else
+                    return NotFound(0);
+            }
+            catch (Exception ex)
+            {
+                //s'il existe quelque errour, retourner le code 400
+                return BadRequest(ex.Message + " " + ex.StackTrace + " " + ex.InnerException);
+            }
+        }
+
+
+        //obtenir le liste des dates disponibles avec la quantite des jours qui est une parameter
+        //du fichier appsetting.json
+        [HttpGet("getAvailability")]
+        //definir le code d'etat de chaque response
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound)]
+        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
+        //definir le services comme asynchrone pour prende en charge la concurrence
+        public async Task<IActionResult> GetAvailability()
+        {
+            try
+            {
+                _logger.LogInformation("Days from appsetting.json: "+this._maxDays.ToString());
+                var result=await _unitOfWork.Calendars.GetAvailability(this._maxDays);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                //s'il existe quelque errour, retourner le code 400
+                return BadRequest(ex.Message + " " + ex.StackTrace + " " + ex.InnerException);
+            }
+        }
+
+        
     }
 }

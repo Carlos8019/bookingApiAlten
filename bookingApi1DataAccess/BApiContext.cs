@@ -17,5 +17,6 @@ namespace bookingApi1DataAccess
         public DbSet<Clients> Clients {get;set;}
         public DbSet<Reservations> Reservations { get; set; }
         public DbSet<Rooms> Rooms { get; set; }
+        public DbSet<CalendarAvailability> CalendarAvailabilities { get; set; }
     }
 }

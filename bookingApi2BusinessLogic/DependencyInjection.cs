@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using bookingApi2BusinessLogic.Interfaces;
 using bookingApi2BusinessLogic.Repositories;
 using bookingApi1DataAccess;
+using bookingApi2BusinessLogic.Utilities;
 namespace bookingApi2BusinessLogic
 {
     /*
@@ -17,6 +18,9 @@ namespace bookingApi2BusinessLogic
             services.AddTransient<IClientRepository,ClientRepository>();
             services.AddTransient<IReservationsRespository,ReservationsRepository>();
             services.AddTransient<IRoomsRepository,RoomsRepository>();
+            services.AddTransient<ICalendarAvailabilityRespository,CalendarAvailabilityRespository>();
+            //utiliser le ManageDates en tant que Scoped
+            services.AddScoped<IManageDates,ManageDates>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             return services;
         }
