@@ -56,6 +56,9 @@
     
   **Dates are used with yyyymmdd format for easy use
 
+![Capture d’écran de 2021-08-20 12-40-30](https://user-images.githubusercontent.com/20178297/130275532-6420c8ae-98c7-409e-8a85-456c8dc627ef.png)
+
+
 *********************************
 Methodology
 
@@ -72,6 +75,12 @@ Methodology
       -BApiContext is used with entity framework core to manage crud operations
     
     
+
+![Capture d’écran de 2021-08-20 12-45-33](https://user-images.githubusercontent.com/20178297/130275700-064a3de9-4197-4ab1-a41c-bcdcaa3dd001.png)
+
+
+    
+    
     *Business logic layer->called bookingApi2BusinessLogic to manage the constrainst and validation such as check availability, login, modify and delete.
 
       -Dto Folder contains the mapping in string to receive the data transfer in json fro react this data will be tranformed to Class Models.
@@ -85,6 +94,10 @@ Methodology
       -Dependency Injection File contains the administration of objects using trasient and scoped methods this file is called in startup im web layer.
 
       -UnitOfWork File represents the facade to acces to different repositories as a subsystems.
+    
+    
+![Capture d’écran de 2021-08-20 12-54-30](https://user-images.githubusercontent.com/20178297/130275887-082d54de-67a6-457a-8b05-230364164179.png)
+    
     
 
     *Services layer-> publish the services to comunicate with front-end and call the methods throught unit of work interface.
@@ -111,6 +124,10 @@ Methodology
   Run the webApi acceding to bookingApi3WebServices and executing in console the command "dotnet run"
   
   Accesing to https://localhost:5001/swagger/index.html you can have access to the webapi resume with option to try each service
+  
+  
+![Capture d’écran de 2021-08-20 13-01-56](https://user-images.githubusercontent.com/20178297/130275992-b77ec7d5-ae10-43ad-b0b5-922815d75d84.png)
+  
   
  
  5.-Frontend
