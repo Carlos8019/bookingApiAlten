@@ -8,9 +8,11 @@
   
   -Functionalities 
     *Check availability
+    *Sign-up
+    *Sign-in
     *Create a reservation
     *Cancel a reservation
-    *Modify reservation
+    *Modify a reservation
   
   -Constraints
     *one room available
@@ -23,47 +25,93 @@
 2.-Functionalities.
 
   -Sign in
-    *Create a simple sign in, in order to have access to the rooms reservations and check availability
+    *Create a simple sign in, in order to have access to the rooms reservations to create, modify or delete.
     *Fields -> email,password
-    *Methods -> Create user and forget password method and login.
+    *Methods -> Create user method and login.
 
   -Check availability
-    *Calendar with available dates.
+    *Calendar with available dates the next 30 days, this data is parametrized from webapi.
     
   -Create a reservation
     *Fields -> start date, finish date.
     
   -Cancel a reservation
-    * Select the reservation code and cancel it.
+    * Select the reservation and cancel it.
     
   -Modify a reservation
-    * Select the reservation code and modify the dates, checking availability.
+    * Select the reservation and modify the dates, checking availability.
     
 
 3.-Database
 
   -This web app will be using 4 tables to manage the reservation functionality with SQL Server
   
-    *Clients -> information of clients such as email, password
+    *BTClients -> information of clients such as email, password
     
-    *Rooms -> information of rooms such as idRoom, code,name, price,description, status, in this challenge only exists one row.
+    *BTRooms -> information of rooms such as idRoom, code,name, price,description, status, in this challenge only exists one row.
     
-    *Status -> status of reservation (reserved, cancel)    
-    
-    *Reservation -> data of reservations with foreing keys of clients, rooms, status.
-    
+    *BTReservations -> data of reservations with foreing keys of clients and rooms.
 
+    *BTCalendarAvailability->Dates with a flag representing the availability
+    
+  **Dates are used with yyyymmdd format for easy use
+
+*********************************
+Methodology
 
 4.-Backend
 
   -This web app will be using 3 tiers or layers in backend using unit of work as design model (interfaces, abstract classes, add Trasient in startup file,depedency injection, DTO and json to comunicate with front-end) developing with .NetCore
   
-    *Data access layer -> called bookingApi1DataAccess to manage the access to database using Entity Framework.
+    *Data access layer -> called bookingApi1DataAccess to manage the access to database using Entity Framework Core with entities.
     
-    *Business logic layer->called bookingApi2BusinessLogic to manage the constrainst and validation such as check availability, login, forget password, modify.
+      -The class GenericRepository in floder Classes manage the interaction with database is used with an Interface IGenericRespository, in folder Interfaces, to generate the dependency injecton approach.
+
+      -Folder Models contains tables representation in classes usin data notations to hide the names of tables and columns.
+
+      -BApiContext is used with entity framework core to manage crud operations
     
-    *Services layer-> publish the services to comunicate with front-end and call the methods throught unit of work interface
     
+    *Business logic layer->called bookingApi2BusinessLogic to manage the constrainst and validation such as check availability, login, modify and delete.
+
+      -Dto Folder contains the mapping in string to receive the data transfer in json fro react this data will be tranformed to Class Models.
+
+      -Interfaces Folder contains the interfaces to be used in the facade with dependency injection, represents the contract and structure of methods in repository.Those interfaces will be invoqued in unit of work pattern.
+
+      -Repositories Folder contains the interfaces implementations of each repository making this decouple of eacho other.
+
+      -Utilities Folder contains methods to be used in the application, in this case managind dates format to centralice the functionality.
+
+      -Dependency Injection File contains the administration of objects using trasient and scoped methods this file is called in startup im web layer.
+
+      -UnitOfWork File represents the facade to acces to different repositories as a subsystems.
+    
+
+    *Services layer-> publish the services to comunicate with front-end and call the methods throught unit of work interface.
+    --Controllers Folder contain the controller with code of each service reproducing status codes according to functionality:
+
+       StatusCodes.Status200OK
+       StatusCodes.Status404NotFound
+       StatusCodes.Status400BadRequest
+
+    --startup File contains the general configuration of application connecting to the database and inplementing the dependency injection and enabling swagger
+
+    --swagger shows the information of web services as a webpage.
+
+    --appsettings.json contains the parameters of the webAPI
+
+       --string connection ("Default")
+
+       --maxDay => maximun of days in advance for a reservation according to requirement
+
+       --MaxReservation => maximon days of reservation according to requirement
+
+  --The Logger also is implemented to trace the application in business logic and webApi
+  
+  Run the webApi acceding to bookingApi3WebServices and executing in console the command "dotnet run"
+  
+  Accesing to https://localhost:5001/swagger/index.html you can have access to the webapi resume with option to try each service
+  
  
  5.-Frontend
  
@@ -91,40 +139,8 @@ Steps for installation:
        "Default":"data source=localhost;initial catalog=BookingAPI;user id=your_user;password=your_password;MultipleActiveResultSets=true"
        
 
-*********************************
-
-Parameters
-
-*This webApi has parameters of string connection ("Default")
-
-*maxDay => maximun of days in advance for a reservation according to requirement
-
-*MaxReservation => maximon days of reservation according to requirement
-
-
-*********************************
-Methodology
-
-*This web api use the unit of work design pattern, using facade and repositories with dependency injection
-
-*In BackEnd use 3 layers
-
-  --bookingApi1DataAccess => To connect with database using Entity Framework Core with context.
+ 
   
-  --bookingApi2BusinessLogic => Develop the business logic and validations with interfaces and classes whom implements this, also DTO mapping and utilities to manage dates.
-  
-  --bookingApi3WebServices => Controller to publish the webAPi with an interface whom represent the initial facade to the repositories, generating responses type
-  
-        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status200OK)]
-        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound)]
-        [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
-  
-  with json.
-  The Logger also is implemented to trace the application
-  
-  Run the webApi acceding to bookingApi3WebServices and executing in console the command "dotnet run"
-  
-    Accesing to https://localhost:5001/swagger/index.html you can have access to the webapi resume with option to try each service
     
 *In Front end use React using Context, useState,useEffect hooks to manage the components behavior.
    This applications have Utilitiesm DTO,context,constant,messages and components organized in folder to a good Administration.
