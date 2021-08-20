@@ -132,18 +132,56 @@ Methodology
  
  5.-Frontend
  
-  - This layer will be developed with React 
+  This layer will be developed with React 
+  *In Front end use React using Context, useState,useEffect hooks to manage the components behavior.
+   This applications have Utilitiesm DTO,context,constant,messages and components organized in folder to a good Administration.
     
-    *Using hooks to manage the doom
-       
-    *Using redux to manage the data exchange.
+    *Using hooks to manage the doom and data exchange
     
     *Axios to comunicate with the webAPI.
+    Libraries needed to run this layer:
+    use npm install --save with each library.
+
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^5.0.0-beta.4",
+    "@material-ui/lab": "^5.0.0-alpha.43",
+    "@material-ui/styled-engine-sc": "^5.0.0-beta.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "and": "^0.0.3",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.1.0",
+    "install": "^0.13.0",
+    "js-sha256": "^0.9.0",
+    "moment": "^2.29.1",
+    "npm": "^7.20.6",
+    "react": "^17.0.2",
+    "react-availability-calendar": "^0.3.13",
+    "react-booking": "^1.1.8",
+    "react-bootstrap-icons": "^1.5.0",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "reactstrap": "^8.9.0",
+    "styled-components": "^5.3.0",
+    "validator": "^13.6.0",
+    "web-vitals": "^1.1.2"
  
+  Run React acceding to bookingapi4-frontend folder and run in console the command "npm start"
+
+  -Folders
+    *Components => contains all components used in the application as a functions
+    *Context => contains files with context (hook of react) to manage functionality in this case Modal and reservation.
+    *Dto=> contains the mapping of data exchange with webapi to create post request
+    *Router => contains the routes of application 
+    *Utilities => contains exported functions to centralice APIrequest with get and post, Constants to share information and variables with components, Messages to centraliced texts and change the language if it is needed.
+
+
 ******************************
 Installation
 I used SQL Server and Visual Studio Code for the development
-
 Steps for installation:
 
   *Create a database called BookingAPI
@@ -155,16 +193,6 @@ Steps for installation:
   
        "Default":"data source=localhost;initial catalog=BookingAPI;user id=your_user;password=your_password;MultipleActiveResultSets=true"
        
-
- 
-  
-    
-*In Front end use React using Context, useState,useEffect hooks to manage the components behavior.
-   This applications have Utilitiesm DTO,context,constant,messages and components organized in folder to a good Administration.
-  Run React acceding to bookingapi4-frontend folder and run in console the command "npm start"
- 
-
-
 **************************************
 Application use
 
@@ -179,8 +207,6 @@ Application use
 First you have to sign-up with an email and password 
 
 Second with sign-in button you can access to the component to create, modify and delete reservetions funcionalities with the validations in the requeriment.
-
-
 
 Screes of application:
 Swagger:
