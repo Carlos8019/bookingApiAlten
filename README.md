@@ -120,9 +120,16 @@ Methodology
         [ProducesResponseType(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest)]
   
   with json.
+  The Logger also is implemented to trace the application
+  
+  Run the webApi acceding to bookingApi3WebServices and executing in console the command "dotnet run"
+  
     Accesing to https://localhost:5001/swagger/index.html you can have access to the webapi resume with option to try each service
     
 *In Front end use React using Context, useState,useEffect hooks to manage the components behavior.
+   This applications have Utilitiesm DTO,context,constant,messages and components organized in folder to a good Administration.
+  Run React acceding to bookingapi4-frontend folder and run in console the command "npm start"![Capture d’écran de 2021-08-20 04-33-55](https://user-images.githubusercontent.com/20178297/130217352-f4d7f4d7-86da-4cc7-aa1b-6a151473c0cb.png)
+ 
 
 
 **************************************
@@ -143,6 +150,8 @@ Second with sign-in button you can access to the component to create, modify and
 
 
 Screes of application:
+Swagger:
+![Capture d’écran de 2021-08-20 04-33-55](https://user-images.githubusercontent.com/20178297/130217398-ff18ad21-2d72-4ce2-a7fb-d89ec8299ccc.png)
 
 
 
