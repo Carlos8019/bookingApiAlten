@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap';
+//Context d'ecran modal
 import ModalContext from '../Contexts/ModalContext'
+//utiliser le router por redirection quand le sign-in est utilise
 import { withRouter } from 'react-router-dom';
 /*
 Cette fonction permet se connecter en utilisant le web service pour valider le courriel
@@ -44,5 +46,4 @@ function Login(props) {
 
    )
 }
-
 export default withRouter(Login)

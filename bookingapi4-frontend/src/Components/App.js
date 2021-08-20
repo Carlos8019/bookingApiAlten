@@ -1,20 +1,22 @@
 import { useContext, useState } from 'react';
 //Validator permets faire des validations en ce cas pour le courriel
-
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, CardBody } from 'reactstrap';
 import classnames from 'classnames';
+//context avec la functionalite d'ecran modal
 import ModalContext from '../Contexts/ModalContext';
 import Login from './Login';
+//Compenent des ecrans modals que se utilise avec les button sign-in et sign-up
 import CheckRooms from './CheckRooms';
 import CreateUser from './CreateUser';
-/*Cette fontion implement l'écran principal avec la parti de login et sign-up
-afin de seconecter et verifier le disponibilite
-j'utilise le react-strap et le bootstrap pour developper les écrans, le redux pour 
-gestioner les donnees et les hooks du react pour l'interaction les components
+/*Cette fonction implement l'écran principal avec la parti du login et le sign-up
+afin de seconecter et verifier la disponibilite
+j'utilise le react-strap et le bootstrap pour developper les écrans, context pour 
+gestioner les donnees et les hooks du react pour l'interaction des components
 */
 function App() {
   //utiliser l'usestate pour gestioner le Tab component
   const [activeTab, setActiveTab] = useState('1');
+  //changer du tab en chaque selection 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   }
@@ -75,15 +77,14 @@ function App() {
                 <Col>
                 {messageTab ? <p className="alert alert-info">{messageTab}</p> : <p></p>}
                 <Card body>
-                  <CardTitle>disponibilite</CardTitle>
-                  <CardText>Résumé de la disponibilité des chambres</CardText>
+                  <CardTitle>Disponibilite</CardTitle>
+                  <CardText>Résumé de la disponibilité des chambres des prochaines 30 jours</CardText>
                   <CardBody>
                     <CheckRooms />
                   </CardBody>
                 </Card>
                 </Col>
               </Row>
-
             </TabPane>
             <TabPane tabId="2">
               <Row>
@@ -104,7 +105,6 @@ function App() {
             </TabPane>
           </TabContent>
         </div>
-
         <Login />
         <CreateUser />
       </div>

@@ -1,18 +1,21 @@
 import React, { useContext, useEffect } from 'react'
 import { Button } from 'reactstrap'
+//utiliser le context pour les ecrans modals
 import ModalContext from '../Contexts/ModalContext'
+//utiliser le context pour gestioner les reservations
 import ReservationContext from '../Contexts/ReservationContext';
+//Component de creation de reservation modal
 import Reservation from './Reservation';
 
 
 function Availability() {
-    //const {userName,setUserName}=useContext(UserContext);
+    //invoquer les fonctions et les variables du context
     const { getDataReservation, tableReservation,handleClick, formatDate, room } = useContext(ReservationContext);
     const { toggleModal, messageModal, setMessageModal } = useContext(ModalContext);
+    //chargement des reservations
     useEffect(() => {
         getDataReservation();
         setMessageModal("");
-        //setUserName("carlosyanez2009@gmail.com");
     }, []);
     return (
         <div className="container">
@@ -54,5 +57,4 @@ function Availability() {
         </div>
     )
 }
-
 export default Availability

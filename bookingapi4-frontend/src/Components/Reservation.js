@@ -1,14 +1,18 @@
 import {useContext,Fragment} from 'react';
+//react strap et react material pour dessin
 import { Modal, ModalHeader, ModalBody, ModalFooter, Label } from 'reactstrap';
 import Box from '@material-ui/core/Box';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DateRangePicker from '@material-ui/lab/DateRangePicker';
 import { Button } from '@material-ui/core';
+//Context d'ecran modal
 import ModalContext from '../Contexts/ModalContext';
+//Context des reservations
 import ReservationContext from '../Contexts/ReservationContext';
 
 function Reservation(props) {
+  //invoquer les variables et fonctions des context
   const {modalReservation,toggleModal,messageModal,enableButton}=useContext(ModalContext);
   const {CreateReservation,valueDates, handleChangeDates}=useContext(ReservationContext);
   return (
@@ -20,6 +24,7 @@ function Reservation(props) {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateRangePicker
               label="Advanced keyboard"
+              disablePast
               value={valueDates}
               onChange={(newValue) =>handleChangeDates(newValue) }
               renderInput={(startProps, endProps) => (

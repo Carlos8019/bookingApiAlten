@@ -1,17 +1,19 @@
 import { createContext, useState } from "react";
-import {Redirect} from 'react-router-dom';
+//pour la validation du format du courriel
 import validator from 'validator';
 import ClienteDto from "../Dto/ClientDto";
 //pour crypter le mot de passe
 import sha256 from 'js-sha256';
+//library avec la funcionalite Post
 import postData from "../Utilities/ApiServicePost";
+//constants pour montrer des messagess
 import * as constant from '../Utilities/Constants';
 import * as messages from '../Utilities/Messages';
 //Le Context permet reutiliser la fonctionalite de l'ecran modal avec tous les components
 //d'accord a le choix se enregistre une compte ou l'acces est valide
 const ModalContext=createContext();
 //Le modalProvider s'utilise pour mettre en relation le context avec chaque component 
-//En ce cas on va l'assigner dan le fichier Index.js
+//En ce cas on va l'assigner dans le fichier Index.js
 const ModalProvider=({children})=>{
 
     //gestioner l'ecran modal
@@ -26,20 +28,20 @@ const ModalProvider=({children})=>{
     //flagEdit est utilise pour reutiliser l'ecran modal et pour savoir s'il est une modification
     //le nombre de reservation sera enregistre
     const [flagEdit,SetFlagEdit]=useState("0");
-    //gestioner l'ecran modal le parametre optionReservation est facultatif
+    //gestioner l'ecran modal le parametre optionReservation et idReservation sont facultatifs
     //il est utilise pour reutiliser l'ecran modal
     const toggleModal = (option,optionReservation=0,idReservacion="0") =>{
-        console.log(option);
+        //gestioner l'ecran modal selon l'option
         if(option===1)
             setModal(!modal);
         if(option===2)
             setModalLogin(!modalLogin);
         if(option===3)
         {
-            if(optionReservation!==undefined)
-                SetFlagEdit(idReservacion);
+            if(optionReservation!==undefined)//il est une modification
+                SetFlagEdit(idReservacion);//ajouter le idReservation pour le modifier
             else
-                SetFlagEdit("0");
+                SetFlagEdit("0");//il est une creation de compte
             if(!modalReservation)
                 setMessageModal("");
             setModalReservation(!modalReservation);
@@ -62,17 +64,19 @@ const ModalProvider=({children})=>{
         e.nativeEvent.stopImmediatePropagation();
         //obtenir les donnees
         const email=form.email;  
+        //crypter le mote de passe
         const password=sha256(form.password);
+        //transformer les donnes au json avec le web api
         const client = ClienteDto({ email,password });
-        
         //faire le demande au web service et gestioner le promise comme un resultat
         postData(constant.API_LOGIN,client)
         .then((response)=>{
             console.log(response.data);
             if(response.data===1)
-            {                
+            {    
+                //si la validation est correcte faire une redirection au ecran de despoibilite            
                 setUserName(email);
-                props.history.push('/disponibilite');
+                props.history.push(constant.REACT_ROUTER_AVAILABILITY);
             }
             else
             {
@@ -98,21 +102,22 @@ const ModalProvider=({children})=>{
         });
 
     }
-    //faire une demande au web service et valider l'acces
+    //faire une demande au web service pour creation de compte
     const CreateUser=(props, e)=>{
         e.nativeEvent.stopImmediatePropagation();
         const email=form.email;
         //crypter le mot de passe avec sha256
         const password=sha256(form.password);
+        //transformer les donnes au json avec le web api
         const client = ClienteDto({ email,password });
         //faire le demande au web service et gestioner le promise comme un resultat
         postData("createUser",client)
         .then((response)=> {
               // si le promise est correcte validar la creation
               if(response.data===1)
-                setMessageTab("Le Compte a été créé avec succès, veuillez vous connecter pour y accéder.")
+                setMessageTab(messages.COMPTE_CREATION_SUCCESS)
               else
-                  setMessageTab("Erreur de création de compte, veuillez réessayer.");
+                  setMessageTab(messages.COMPTE_CREATION_ERROR);
             //fermer le modal
             setModal(false);
         })
@@ -121,17 +126,16 @@ const ModalProvider=({children})=>{
             if (error.response) {
                 //le web api returne un 404 quand le courriel deja existe
                 if(error.response.status===404)
-                    setMessageTab("Le compte que vous avez saisi existe déjà, veuillez vous connecter.");
+                    setMessageTab(messages.COMPTE_CREATION_ALREADY_EXISTS);
                 //erreur de connection 
                 else
-                    setMessageTab("Erreur de création de compte, veuillez réessayer.");
+                    setMessageTab(messages.COMPTE_CREATION_ERROR);
               }
             else
                 //erreur de connection
-                setMessageTab("Erreur de création de compte, veuillez réessayer.");
+                setMessageTab(messages.COMPTE_CREATION_ERROR);
             setModal(false);
-        });
-        
+        });   
     }
     const handleChange = (e,field) => {
         let emailTmp = "";
@@ -160,7 +164,7 @@ const ModalProvider=({children})=>{
             validatePasword(prPassword);
         }
         else {
-            setMessageModal("Format de courrier incorrect");
+            setMessageModal(messages.COMPTE_CREATION_EMAIL_FORMAT_ERROR);
             setEnableButton(true);
         }
     }
@@ -171,12 +175,12 @@ const ModalProvider=({children})=>{
             setEnableButton(false);
         }
         else {
-            setMessageModal("Le mot de passe est vide");
+            setMessageModal(messages.COMPTE_CREATION_PASSWORD_EMPTY);
             setEnableButton(true);
         }
     }
 
-    //exporter les etast et les fonctions avec les autres components
+    //exporter les etats et les fonctions avec les autres components
     const data={userName,modalReservation,modal,form,messageModal,enableButton,messageTab,modalLogin
         ,loginUser,flagEdit,toogleModalLogin,setEnableButton,setMessageModal
         ,toggleModal,CreateUser,setForm,handleChange}

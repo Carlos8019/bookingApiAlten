@@ -1,14 +1,19 @@
 import { createContext, useContext, useState } from "react"
+//gestion du json
 import ReservationDto from "../Dto/ReservationDto";
+//Context d'ecran modal
 import ModalContext from "./ModalContext";
 //gestion de format aux dates
 import Moment from 'moment';
+//gestion d'invocation au web api
 import postData from "../Utilities/ApiServicePost";
+import GetData from '../Utilities/ApiServiceGet';
+//messages 
 import * as messages from '../Utilities/Messages';
 import * as constant from '../Utilities/Constants';
-import GetData from '../Utilities/ApiServiceGet';
-
+//creation du Context
 const ReservationContext = createContext();
+//creation de TAG et propaguer aux les children components
 const ReservationProvider = ({ children }) => {
     //obtenir les dates de la reservation du component
     const [valueDates, setValueDates] = useState([null, null]);
@@ -25,6 +30,7 @@ const ReservationProvider = ({ children }) => {
     const handleChangeDates = (newValue) => {
         setValueDates(newValue, ValidateDates(newValue));
     }
+    //valider les inputs des dates
     const ValidateDates = (datesArray) => {
         if (datesArray[0] !== null && datesArray[1] !== null)
             setEnableButton(false);
@@ -35,12 +41,9 @@ const ReservationProvider = ({ children }) => {
     const getDataReservation = async () => {
         await GetData(constant.API_GET_AVAILABLE_BY_USER + userName)
             .then((response) => {
-                console.log(response.data);
                 setTableReservation(response.data);
-
             })
             .catch((error) => {
-                //console.log(error);
             });
     }
     //creation de une reservation
@@ -123,6 +126,7 @@ const ReservationProvider = ({ children }) => {
             //transformer au formate du calendar
             let startDateCalendar = formatDate(items[0].startDate, 1);
             let endDateCalendar = formatDate(items[0].endDate, 1);
+            //actualisation d'etat 
             setValueDates([startDateCalendar, endDateCalendar]);
             handleChangeDates([startDateCalendar, endDateCalendar]);
             //invoque la fenêtre modale en spécifiant le paramètre de modification facultatif
@@ -132,6 +136,7 @@ const ReservationProvider = ({ children }) => {
         {
             postData(constant.API_DELETE_RESERVATION, reservation)
                 .then((response) => {
+                    //gestioner la reponse selon le code du web api
                     if (response.data === 3)
                         setMessageModal(messages.RESERVATION_NUMBER_ERROR);
                     if (response.data === 2)
