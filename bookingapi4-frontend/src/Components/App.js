@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
 //Validator permets faire des validations en ce cas pour le courriel
 
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, CardBody } from 'reactstrap';
 import classnames from 'classnames';
 import ModalContext from '../Contexts/ModalContext';
-import CreateUser from './CreateUser';
 import Login from './Login';
+import CheckRooms from './CheckRooms';
+import CreateUser from './CreateUser';
 /*Cette fontion implement l'écran principal avec la parti de login et sign-up
 afin de seconecter et verifier le disponibilite
 j'utilise le react-strap et le bootstrap pour developper les écrans, le redux pour 
@@ -31,7 +32,7 @@ function App() {
           </div>
         </div>
       </div>
-
+      <br/>
       <div className="d-flex align-items-center justify-content-center">
         <div className="container">
           <Nav tabs>
@@ -40,7 +41,7 @@ function App() {
                 className={classnames({ active: activeTab === '1' })}
                 onClick={() => { toggle('1'); }}
               >
-                Information
+                Vérifier la disponibilité
               </NavLink>
             </NavItem>
             <NavItem>
@@ -48,19 +49,12 @@ function App() {
                 className={classnames({ active: activeTab === '2' })}
                 onClick={() => { toggle('2'); }}
               >
-                Vérifier la disponibilité
+                Information du Challenge Alten
               </NavLink>
             </NavItem>
           </Nav>
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">
-              <Row>
-                <Col sm="12">
-                  <a href="https://github.com/Carlos8019/bookingApiAlten">GitHub Projet</a>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tabId="2">
               <Row>
                 <Col sm="6">
                   <Card body>
@@ -78,17 +72,41 @@ function App() {
                 </Col>
               </Row>
               <Row>
+                <Col>
                 {messageTab ? <p className="alert alert-info">{messageTab}</p> : <p></p>}
                 <Card body>
                   <CardTitle>disponibilite</CardTitle>
                   <CardText>Résumé de la disponibilité des chambres</CardText>
+                  <CardBody>
+                    <CheckRooms />
+                  </CardBody>
                 </Card>
+                </Col>
+              </Row>
+
+            </TabPane>
+            <TabPane tabId="2">
+              <Row>
+                <Col sm="12">
+                  <Card body>
+                    <CardText><h6>Alten Challenge</h6><br /><h6>Developed by Carlos Yanez</h6>
+                      <br /><a href="https://github.com/Carlos8019/bookingApiAlten">GitHub Projet</a>
+                      <p>CHALLENGE
+                          Post-Covid scenario:
+                          People are now free to travel everywhere but because of the pandemic, a lot of hotels went
+                          bankrupt. Some former famous travel places are left with only one hotel.
+                          You’ve been given the responsibility to develop a booking API for the very last hotel in Cancun.</p>
+                      
+                      </CardText>
+                  </Card>
+                </Col>
               </Row>
             </TabPane>
           </TabContent>
         </div>
-        <CreateUser />
+
         <Login />
+        <CreateUser />
       </div>
     </>
   );
@@ -96,7 +114,7 @@ function App() {
 
 export default App;
 
-
+/* <CreateUser /> */
 
 /*
 

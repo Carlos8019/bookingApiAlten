@@ -1,9 +1,12 @@
 import { createContext, useState } from "react";
+import {Redirect} from 'react-router-dom';
 import validator from 'validator';
 import ClienteDto from "../Dto/ClientDto";
 //pour crypter le mot de passe
 import sha256 from 'js-sha256';
 import postData from "../Utilities/ApiServicePost";
+import * as constant from '../Utilities/Constants';
+import * as messages from '../Utilities/Messages';
 //Le Context permet reutiliser la fonctionalite de l'ecran modal avec tous les components
 //d'accord a le choix se enregistre une compte ou l'acces est valide
 const ModalContext=createContext();
@@ -18,15 +21,31 @@ const ModalProvider=({children})=>{
     const toogleModalLogin=()=>setModalLogin(!modal);
     //gesioner l'ecran modal de la reservation
     const [modalReservation,setModalReservation]=useState(false);
-
-    const toggleModal = (option) =>{
+    //gestioner l'utilisateur 
+    const [userName,setUserName]=useState("");
+    //flagEdit est utilise pour reutiliser l'ecran modal et pour savoir s'il est une modification
+    //le nombre de reservation sera enregistre
+    const [flagEdit,SetFlagEdit]=useState("0");
+    //gestioner l'ecran modal le parametre optionReservation est facultatif
+    //il est utilise pour reutiliser l'ecran modal
+    const toggleModal = (option,optionReservation=0,idReservacion="0") =>{
         console.log(option);
         if(option===1)
             setModal(!modal);
         if(option===2)
             setModalLogin(!modalLogin);
         if(option===3)
+        {
+            if(optionReservation!==undefined)
+                SetFlagEdit(idReservacion);
+            else
+                SetFlagEdit("0");
+            if(!modalReservation)
+                setMessageModal("");
             setModalReservation(!modalReservation);
+
+        }
+            
     } 
     //gestioner les message de validation
     const [messageModal,setMessageModal]=useState("");
@@ -45,31 +64,35 @@ const ModalProvider=({children})=>{
         const email=form.email;  
         const password=sha256(form.password);
         const client = ClienteDto({ email,password });
-        //console.log(props.history);
-        props.history.push("/disponibilite");
+        
         //faire le demande au web service et gestioner le promise comme un resultat
-        postData("login",client)
+        postData(constant.API_LOGIN,client)
         .then((response)=>{
             console.log(response.data);
             if(response.data===1)
-                props.history.push("/disponibilite");
+            {                
+                setUserName(email);
+                props.history.push('/disponibilite');
+            }
             else
-                setMessageTab("Erreur de création de compte, veuillez réessayer.");
+            {
+                setMessageTab(messages.COMPTE_ERROR_LOGIN);
+            }
+                
             setModalLogin(!modalLogin);
         })
         .catch((error)=>{
-            
             if (error.response) {
                 //le web api returne un 404 quand le courriel ou le mot de passe ne sont pas correctes
                 if(error.response.status===404)
-                    setMessageTab("Courriel ou mot de passe incorrect, veuillez réessayer.");
+                    setMessageTab(messages.COMPTE_ERROR_LOGIN);
                 //erreur de connection 
                 else
-                    setMessageTab("Erreur de création de compte, veuillez réessayer.");
+                    setMessageTab(messages.COMPTE_ERROR_LOGIN_COMMUNICATION);
               }
             else
                 //erreur de connection
-                setMessageTab("Erreur de création de compte, veuillez réessayer.");
+                setMessageTab(messages.COMPTE_ERROR_LOGIN_COMMUNICATION);
             
             setModalLogin(!modalLogin);
         });
@@ -154,8 +177,8 @@ const ModalProvider=({children})=>{
     }
 
     //exporter les etast et les fonctions avec les autres components
-    const data={modalReservation,modal,form,messageModal,enableButton,messageTab,modalLogin
-        ,loginUser,toogleModalLogin,setEnableButton,setMessageModal
+    const data={userName,modalReservation,modal,form,messageModal,enableButton,messageTab,modalLogin
+        ,loginUser,flagEdit,toogleModalLogin,setEnableButton,setMessageModal
         ,toggleModal,CreateUser,setForm,handleChange}
     return(
         <ModalContext.Provider value={data}>

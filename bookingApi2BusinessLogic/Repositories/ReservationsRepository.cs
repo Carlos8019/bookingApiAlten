@@ -18,16 +18,21 @@ namespace bookingApi2BusinessLogic.Repositories
     */
     public class ReservationsRepository : GenericRepository<Reservations>, IReservationsRespository
     {
+        //gestioner les dates
+        private readonly IManageDates _dates;
         //gestioner le loggin
         private readonly ILogger _logger;
         private readonly IRoomsRepository _rooms;
         //pour la gestion du calendrier 
         private ICalendarAvailabilityRespository _calendar;
+        //returner le code de la fonction du validation
+        public int codeValidation { set; get; }
         //Constructor pour le dependency injection
         public ReservationsRepository(BApiContext context, IRoomsRepository rooms
-        , ILoggerFactory loggerFactory, ICalendarAvailabilityRespository calendar) : base(context)
+        , ILoggerFactory loggerFactory, ICalendarAvailabilityRespository calendar, IManageDates dates) : base(context)
         {
             this._rooms = rooms;
+            this._dates = dates;
             this._calendar = calendar;
             this._logger = loggerFactory.CreateLogger("ReservationsRepository");
 
@@ -66,14 +71,23 @@ namespace bookingApi2BusinessLogic.Repositories
             }
             return result;
         }
-        //valider que les intervalles sont correctes et soulement de n jours , n c'est un parametre en appsetting.json
-        public async Task<bool> ValidateDatesReservation(ReservationDto dto, int maxdays)
+        //valider que les intervalles sont correctes , soulement de maxdays jours , n c'est un parametre en appsetting.json
+        //et soulement maxdaysAdvance jours apres
+        public async Task<bool> ValidateDatesReservation(ReservationDto dto, int maxdays, int maxdaysAdvance)
         {
             _logger.LogWarning("MaxDays Parameter: " + maxdays);
             //extraire les dates pour valider la disponibilité
             //Le format de date yyyymmdd permets validar facilement la disponibilite car on peux l'utiliser comme un int
             int.TryParse(dto.startDate, out int startDate);
             int.TryParse(dto.endDate, out int endDate);
+            //valider que la réservation est faite moins de maxdaysAdvance jours à l'avance.
+            var getEndDate = await _dates.GetMaxDate(maxdaysAdvance);
+            if (endDate > getEndDate)
+            {
+                _logger.LogWarning("la reservation n'est pas moins de maxdaysAdvance jours à l'avance. endDate > getEndDate" + endDate +" "+ getEndDate);
+                codeValidation = -3;//0 lorsque la reservation n'est pas moins de maxdaysAdvance jours à l'avance
+                return false;
+            }
 
             //valider que l'intervalle n'est que de maxdays jours
             int validateMaxDays = endDate - startDate;
@@ -81,6 +95,7 @@ namespace bookingApi2BusinessLogic.Repositories
             if (validateMaxDays > maxdays)
             {
                 _logger.LogWarning("L'intervalle des jours est plus grande que " + maxdays);
+                codeValidation = 0;//0 lorsque l'intervalle est plus grand
                 return false;
             }
 
@@ -105,6 +120,7 @@ namespace bookingApi2BusinessLogic.Repositories
             //si deja existe information ce n'est pas possible de creer la reservation
             if (validateStartDate.Any())
             {
+                codeValidation = -1;//lorsque La date initialle fait partie d'autre reservation
                 _logger.LogWarning("La date initialle fait partie d'autre reservation");
                 return false;
             }
@@ -127,6 +143,7 @@ namespace bookingApi2BusinessLogic.Repositories
             //si deja existe information ce n'est pas possible de creer la reservation
             if (validateEndDate.Any())
             {
+                codeValidation = -2;//lorsque La date de fin fait partie d'autre reservation
                 _logger.LogWarning("La date de fin fait partie d'autre reservation");
                 return false;
             }

@@ -1,29 +1,19 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch,Redirect } from 'react-router-dom'
 import App from '../Components/App'
-import { ModalProvider } from '../Contexts/ModalContext'
-import Availability from '../Components/Availability.js'
-import { ReservationProvider } from '../Contexts/ReservationContext'
-import UserProvider from '../Contexts/UserContext'
+import Availability from '../Components/Availability.js';
 export default function Routes() {
   return (
-    <UserProvider>
-      <ModalProvider>
+
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={App} />
-            <Route exact path="/disponibilite">
-              <ReservationProvider>
-                <Availability />
-              </ReservationProvider>
-            </Route>
+            <Route exact path="/disponibilite" component={Availability} />
           </Switch>
         </BrowserRouter>
-      </ModalProvider>
-    </UserProvider>
+
   )
 }
-
 
 
 

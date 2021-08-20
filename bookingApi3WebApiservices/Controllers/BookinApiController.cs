@@ -111,7 +111,7 @@ namespace bookingApi3WebApiservices.Controllers
             try
             {
                 //Validation des dates qui sont deja dans les reservations
-                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation))
+                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation,this._maxDays))
                 {
                     //createEntity avec l'flag false pour l'enregistrement
                     var entity = await _unitOfWork.Reservations.CreateEntity(dto, false);
@@ -126,8 +126,8 @@ namespace bookingApi3WebApiservices.Controllers
                     //retourner 3 si le rooms ou le client n'existe pas
                     return Ok(3);
                 }
-                else //Le code zero nous dit que l'intervalle deja existe
-                    return Ok(0);
+                else //Le code qui es retourne nous dit que l'intervalle deja existe ou que il est plus grand
+                    return Ok(_unitOfWork.Reservations.codeValidation);
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace bookingApi3WebApiservices.Controllers
             try
             {
                 //Validation des dates qui sont deja dans les reservations
-                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation))
+                if (await _unitOfWork.Reservations.ValidateDatesReservation(dto,this._maxReservation,this._maxDays))
                 {
                     //createEntity avec l'flag true pour le modifier
                     var entity = await _unitOfWork.Reservations.CreateEntity(dto, true);
@@ -165,8 +165,8 @@ namespace bookingApi3WebApiservices.Controllers
                     return Ok(3);
 
                 }
-                else //Le code zero nous dit que l'intervalle deja existe
-                    return Ok(0);
+                else //Le code qui es retourne nous dit que l'intervalle deja existe ou que il est plus grand
+                    return Ok(_unitOfWork.Reservations.codeValidation);
             }
             catch (Exception ex)
             {

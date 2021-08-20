@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label } from 'reactstrap';
 import ModalContext from '../Contexts/ModalContext'
+import { withRouter } from 'react-router-dom';
 /*
 Cette fonction permet se connecter en utilisant le web service pour valider le courriel
 et le mot de passe
@@ -44,4 +45,4 @@ function Login(props) {
    )
 }
 
-export default Login
+export default withRouter(Login)

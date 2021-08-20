@@ -35,7 +35,7 @@ function Reservation(props) {
         </ModalBody>
         <ModalFooter>
           <Button  variant="contained" disabled={enableButton} color="primary" onClick={(e) => CreateReservation(props, e)}>Réserver</Button>{' '}
-          <Button color="secondary" onClick={() => toggleModal(1)}>Annuler</Button>
+          <Button color="secondary" onClick={() => toggleModal(3)}>Annuler</Button>
         </ModalFooter>
       </Modal>
     </div>
